@@ -1,7 +1,7 @@
 import pandas as pd
 
 # 1️⃣ Charger le dataset
-file_path = "steam_games.csv"  # Mets ici le bon chemin
+file_path = "steam_games.csv" 
 df = pd.read_csv(file_path)
 
 # 2️⃣ Afficher les 5 premières lignes pour un aperçu
