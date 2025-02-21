@@ -4,15 +4,15 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-# 📂 1️⃣ Créer un dossier pour stocker les images des graphiques
+# Créer un dossier pour stocker les images des graphiques
 output_dir = "images_graphs"
 os.makedirs(output_dir, exist_ok=True)
 
-# 📥 2️⃣ Charger le dataset
+# Charger le dataset
 file_path = "steam_games.csv"  # Mets ici le bon chemin
 df = pd.read_csv(file_path)
 
-# 📅 3️⃣ Évolution du Nombre de Jeux Publiés par Année
+# Évolution du Nombre de Jeux Publiés par Année
 df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
 df_clean = df.dropna(subset=['release_date'])
 df_clean.loc[:, 'release_year'] = df_clean['release_date'].dt.year
@@ -29,7 +29,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.savefig(os.path.join(output_dir, "evolution_jeux_par_annee.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# 🎮 4️⃣ Répartition des Genres les Plus Populaires
+# Répartition des Genres les Plus Populaires
 df_clean['genre'] = df_clean['genre'].dropna()
 all_genres = df_clean['genre'].str.split(',').explode()
 top_genres = all_genres.value_counts().head(10)
@@ -44,7 +44,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.savefig(os.path.join(output_dir, "top_genres.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# 🏢 5️⃣ Les Éditeurs les Plus Productifs
+# Les Éditeurs les Plus Productifs
 top_publishers = df_clean['publisher'].value_counts().head(10)
 
 plt.figure(figsize=(12, 6))
@@ -57,7 +57,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.savefig(os.path.join(output_dir, "top_publishers.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# 💰 6️⃣ Distribution des Prix des Jeux (SANS LES CARRÉS ROUGES)
+# Distribution des Prix des Jeux (SANS LES CARRÉS ROUGES)
 df_clean['original_price'] = df_clean['original_price'].replace(['Free', 'Free to Play'], '0')
 df_clean['original_price'] = df_clean['original_price'].str.replace('[\$,]', '', regex=True)
 df_clean['original_price'] = pd.to_numeric(df_clean['original_price'], errors='coerce')
@@ -72,7 +72,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.savefig(os.path.join(output_dir, "distribution_prix.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# ⭐ 7️⃣ Répartition des Évaluations des Jeux
+# Répartition des Évaluations des Jeux
 df_clean['all_reviews'] = df_clean['all_reviews'].dropna().str.split(',').str[0]
 top_reviews = df_clean['all_reviews'].value_counts()
 
